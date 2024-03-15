@@ -11,11 +11,12 @@ class Bottles:
         return ''
 
 
-    def verses(self, *verse_numbers: int) -> str:
+    def verses(self, starting_verse: int, ending_verse: int) -> str:
         """Given a list of verse numbers, creates and attaches verses together
 
         Args:
-            verse_numbers (int, int, int...): Any number of verse numbers
+            starting_verse (int): What verse to start on
+            ending_verse (int): What verse to end on (inclusive)
 
         Returns:
             str: Verse attached together with a new line between them
