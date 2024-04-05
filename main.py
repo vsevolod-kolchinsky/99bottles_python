@@ -1,3 +1,41 @@
+"""
+**Value/cost questions:**
+
+1. How difficult was it to write?
+
+1/10
+
+2. How hard is it to understand?
+
+3/10
+
+3. How expensive will it be to change?
+
+3/10
+
+**Core concept questions:**
+
+- How many verse variants are there?
+
+100. Line: 179.
+
+- Which verses are most alike? In what way?
+
+1 to 98 use plural for container, share the same `what_you_can_do`.
+Lines: 74 (note zero-based numbering) and 132.
+
+- Which verses are most different, and in what way?
+
+100th use "No more" instead of amount and unique `what_you_can_do`.
+Lines: 63 and 129.
+
+- What is the rule to determine which verse comes next?
+
+Sequence. Line: 181.
+
+"""
+
+
 class Entity:
     """Bottle(s) of beverage."""
 
