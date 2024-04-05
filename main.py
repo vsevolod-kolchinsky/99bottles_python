@@ -1,13 +1,23 @@
 class Entity:
-    """Bottle(s)."""
+    """Bottle(s) of beverage."""
 
-    def __init__(self, amount: int) -> None:
+    def __init__(
+        self,
+        amount: int,
+        *,
+        content: str = "beer",
+        container_singular: str = "bottle",
+        container_plural: str = "bottles",
+    ) -> None:
         self._amount = amount
+        self._content = content
+        self._container_singular = container_singular
+        self._container_plural = container_plural
 
     def __str__(self) -> str:
         return (
             f"{self._get_amount_representation(self._amount)} "
-            f"{self._get_pluralization(self._amount)} of beer"
+            f"{self._get_pluralization(self._amount)} of {self._content}"
         )
 
     def _get_amount_representation(self, amount: int) -> str:
@@ -22,8 +32,8 @@ class Entity:
 
     def _get_pluralization(self, amount: int) -> str:
         mapping = (
-            (lambda: amount == 1, "bottle"),
-            (lambda: amount == 0 or amount > 1, "bottles"),
+            (lambda: amount == 1, self._container_singular),
+            (lambda: amount == 0 or amount > 1, self._container_plural),
         )
         for condition, result in mapping:
             if condition():
@@ -34,12 +44,13 @@ class Entity:
 class WhatYouHave:
     """Initial state on the wall."""
 
-    def __init__(self, verse_number: int) -> None:
+    def __init__(self, verse_number: int, *, where: str = "on the wall") -> None:
         self._verse_number = verse_number
+        self._where = where
         self._entity = Entity(verse_number)
 
     def __str__(self) -> str:
-        return f"{self._entity} on the wall, {self._entity}."
+        return f"{self._entity} {self._where}, {self._entity}."
 
     def __sub__(self, how_many: int) -> str:
         if self._verse_number >= how_many:
@@ -47,7 +58,7 @@ class WhatYouHave:
         else:
             new_number = 99
         new_entity = Entity(new_number)
-        return f"{new_entity} on the wall."
+        return f"{new_entity} {self._where}."
 
 
 class Verse:
@@ -56,12 +67,13 @@ class Verse:
     def __init__(self, verse_number: int) -> None:
         self._verse_number = verse_number
         self._what_you_have = WhatYouHave(verse_number)
+        self._what_you_will_have = self._what_you_have - 1
 
     def __str__(self) -> str:
         return (
             f"{str(self._what_you_have).capitalize()}\n"
             f"{self._what_you_can_do(self._verse_number)}, "
-            f"{self._what_you_have - 1}\n"
+            f"{self._what_you_will_have}\n"
         )
 
     def _get_amount_representation(self, amount: int) -> str:
